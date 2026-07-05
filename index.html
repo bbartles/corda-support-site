@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Corda — Support</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:     #0D0D0D;
+      --card:      #1A1A1A;
+      --border:    #2C2C2C;
+      --amber:     #EF9F27;
+      --amber-dim: rgba(239,159,39,0.12);
+      --amber-glow:rgba(239,159,39,0.06);
+      --white:     #F5F0E8;
+      --gray:      #888880;
+      --gray-dim:  #555550;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(13,13,13,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 18px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--amber);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--white); }
+
+    /* ── HERO ── */
+    #hero {
+      position: relative;
+      text-align: center;
+      padding: 72px 24px 64px;
+      overflow: hidden;
+    }
+
+    .hero-glow {
+      position: absolute;
+      top: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 480px;
+      height: 480px;
+      background: radial-gradient(ellipse at center, rgba(239,159,39,0.14) 0%, transparent 68%);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 20px;
+    }
+
+    #hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(32px, 8vw, 52px);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+
+    #hero h1 span { color: var(--amber); }
+
+    .hero-sub {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--gray);
+      max-width: 420px;
+      margin: 0 auto 36px;
+      line-height: 1.7;
+    }
+
+    .support-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 10px 20px;
+      font-size: 14px;
+      color: var(--white);
+      text-decoration: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .support-pill:hover {
+      border-color: var(--amber);
+      background: var(--amber-dim);
+    }
+
+    .support-pill .pill-icon {
+      width: 28px;
+      height: 28px;
+      background: var(--amber);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .pill-label { color: var(--gray); font-size: 12px; margin-right: 4px; }
+
+    /* ── QUICK LINKS ── */
+    #quick {
+      padding: 0 24px 56px;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    .quick-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .quick-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 16px;
+      text-align: center;
+      text-decoration: none;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+
+    .quick-card:hover {
+      border-color: var(--amber);
+      transform: translateY(-2px);
+    }
+
+    .quick-icon {
+      font-size: 24px;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .quick-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--gray);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── SECTION SHELL ── */
+    .section {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 56px 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-eyebrow {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: clamp(22px, 5vw, 30px);
+      color: var(--white);
+      margin-bottom: 32px;
+      line-height: 1.15;
+    }
+
+    /* ── FAQ ACCORDION ── */
+    .faq-group {
+      margin-bottom: 32px;
+    }
+
+    .faq-group-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gray-dim);
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    details {
+      border-bottom: 1px solid var(--border);
+    }
+
+    details summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 18px 0;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--white);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      user-select: none;
+      transition: color 0.2s;
+    }
+
+    details summary::-webkit-details-marker { display: none; }
+    details summary:hover { color: var(--amber); }
+
+    .faq-chevron {
+      flex-shrink: 0;
+      width: 18px;
+      height: 18px;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: var(--gray);
+      transition: transform 0.25s, border-color 0.2s;
+    }
+
+    details[open] .faq-chevron {
+      transform: rotate(180deg);
+      border-color: var(--amber);
+      color: var(--amber);
+    }
+
+    .faq-body {
+      padding: 0 0 20px;
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--gray);
+      line-height: 1.75;
+    }
+
+    .faq-body p + p { margin-top: 12px; }
+
+    .faq-body a {
+      color: var(--amber);
+      text-decoration: none;
+    }
+
+    .faq-body a:hover { text-decoration: underline; }
+
+    .faq-body .highlight {
+      display: inline-block;
+      background: var(--amber-dim);
+      border: 1px solid rgba(239,159,39,0.25);
+      border-radius: 6px;
+      padding: 2px 8px;
+      color: var(--amber);
+      font-weight: 500;
+      font-size: 13px;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      gap: 16px;
+      padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .step:last-child { border-bottom: none; }
+
+    .step-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--amber-dim);
+      border: 1px solid rgba(239,159,39,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--amber);
+      flex-shrink: 0;
+    }
+
+    .step-content h4 {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+
+    .step-content p {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--gray);
+      line-height: 1.65;
+    }
+
+    /* ── CONTACT ── */
+    .contact-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .contact-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .contact-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--amber-dim);
+      border: 1px solid rgba(239,159,39,0.25);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .contact-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gray-dim);
+      margin-bottom: 3px;
+    }
+
+    .contact-value {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--white);
+    }
+
+    .contact-value a {
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    .contact-value a:hover { color: var(--amber); }
+
+    .contact-note {
+      font-size: 12px;
+      color: var(--gray);
+      margin-top: 2px;
+    }
+
+    /* ── TERMS ── */
+    #terms .section-title { margin-bottom: 8px; }
+
+    .terms-updated {
+      font-size: 12px;
+      color: var(--gray-dim);
+      margin-bottom: 32px;
+    }
+
+    .terms-toc {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin-bottom: 36px;
+    }
+
+    .terms-toc p {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray-dim);
+      margin-bottom: 12px;
+    }
+
+    .terms-toc ol {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      counter-reset: toc;
+    }
+
+    .terms-toc ol li {
+      counter-increment: toc;
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+
+    .terms-toc ol li::before {
+      content: counter(toc, decimal-leading-zero);
+      font-family: 'Syne', sans-serif;
+      font-size: 11px;
+      color: var(--amber);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .terms-toc a {
+      font-size: 13px;
+      color: var(--gray);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .terms-toc a:hover { color: var(--white); }
+
+    .terms-block {
+      margin-bottom: 40px;
+    }
+
+    .terms-block h3 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--white);
+      margin-bottom: 14px;
+      padding-top: 8px;
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+
+    .terms-num {
+      font-size: 11px;
+      color: var(--amber);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+    }
+
+    .terms-block p, .terms-block li {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--gray);
+      line-height: 1.8;
+      margin-bottom: 10px;
+    }
+
+    .terms-block ul, .terms-block ol {
+      padding-left: 20px;
+      margin-bottom: 10px;
+    }
+
+    .terms-block strong {
+      color: var(--white);
+      font-weight: 500;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 24px;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 8px;
+    }
+
+    .footer-sub {
+      font-size: 12px;
+      color: var(--gray-dim);
+      margin-bottom: 20px;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      list-style: none;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      font-size: 12px;
+      color: var(--gray-dim);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--gray); }
+
+    .footer-copy {
+      font-size: 11px;
+      color: var(--gray-dim);
+      margin-top: 20px;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 480px) {
+      .quick-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+      .quick-card { padding: 16px 10px; }
+      .quick-label { font-size: 11px; }
+      .contact-card { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Corda</a>
+  <ul class="nav-links">
+    <li><a href="#how-it-works">How It Works</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#contact">Support</a></li>
+    <li><a href="#terms">Terms</a></li>
+    <li><a href="#privacy">Privacy</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <h1>Corda<br><span>Support</span></h1>
+  <p class="hero-sub">Quick answers so you can get back to your visit.</p>
+
+</section>
+
+<!-- QUICK LINKS -->
+<div id="quick">
+  <div class="quick-grid">
+    <a href="#faq-borrow" class="quick-card">
+      <span class="quick-icon">⚡</span>
+      <span class="quick-label">How to Borrow</span>
+    </a>
+    <a href="#faq-return" class="quick-card">
+      <span class="quick-icon">↩️</span>
+      <span class="quick-label">How to Return</span>
+    </a>
+    <a href="#faq-fees" class="quick-card">
+      <span class="quick-icon">💳</span>
+      <span class="quick-label">Deposits &amp; Late Fees</span>
+    </a>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section id="how-it-works" class="section">
+  <div class="section-eyebrow">The basics</div>
+  <h2 class="section-title">How Corda works</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-content">
+        <h4>Find a kiosk</h4>
+        <p>Look for a Corda charging kiosk near the entrance or main gallery of your venue. Available chargers are visible in the slots on the front of the kiosk.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h4>Scan the QR code</h4>
+        <p>Use your phone's camera to scan the QR code on the kiosk screen. This opens the Corda checkout page in your browser — no app download required.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h4>Enter your card details</h4>
+        <p>Provide a credit or debit card to secure the rental. A temporary authorization hold is placed on your card — no charge is made at this step. If you use a debit card, the hold amount will temporarily reduce your available bank balance until the charger is returned.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h4>Take the charger with the flashing light</h4>
+        <p>Once checkout is complete, the charger assigned to you will begin flashing. Pull it out and plug in using the built-in Lightning, USB-C, or Micro-USB cable.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <h4>Return before you leave</h4>
+        <p>Slide the charger back into any open slot on any Corda kiosk at the venue. Press firmly until the kiosk screen shows <strong>Return Successful.</strong></p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">6</div>
+      <div class="step-content">
+        <h4>Deposit released</h4>
+        <p>Your authorization hold is released immediately upon return. If your rental exceeded the 3-hour complimentary window, any applicable late fees will be deducted before the remaining hold is released. Depending on your bank, the authorization hold may take 3–5 business days to clear from your statement.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="section">
+  <div class="section-eyebrow">Frequently asked questions</div>
+  <h2 class="section-title">Got a question?</h2>
+
+  <!-- Borrowing -->
+  <div id="faq-borrow" class="faq-group">
+    <div class="faq-group-label">Borrowing</div>
+
+    <details>
+      <summary>How do I borrow a charger? <span class="faq-chevron">▾</span></summary>
+      <div class="faq-body">
+        <p>Scan the QR code on the kiosk screen with your phone's camera — no app required. The Corda checkout page will open in your browser. Enter your card details to secure the rental, and the kiosk will indicate which charger to take with a flashing light.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Is there a cost to borrow a charger? <span class="faq-chevron">▾</span></summary>
+      <div class="faq-body">
+        <p>Borrowing is completely free for venue visitors. A temporary deposit hold is placed on your card to secure the unit, but no charge is made at the time of borrowing. The hold is released as soon as you return the charger.</p>
+        <p>The rental includes a 3-hour complimentary window. After that, a late fee of $1 per hour applies.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>What cables are included? <span class="faq-chevron">▾</span></summary>
+      <div class="faq-body">
+        <p>Every Corda charger includes three built-in cables: <span class="highlight">USB-C</span>, <span class="highlight">Lightning</span>, and <span class="highlight">Micro-USB</span> — compatible with virtually all smartphones and tablets. You don't need to bring your own cable.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>How much charge does the charger hold? <span class="faq-chevron">▾</span></summary>
+      <div class="faq-body">
+        <p>Each unit holds enough charge for one to two full smartphone charges, depending on your device. Most visitors get 60–100% added charge during a typical visit.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>How many chargers can I borrow at once? <span class="faq-chevron">▾</span></summary>
+      <div class="faq-body">
+        <p>One charger per card. If you're with a group, each person can borrow one using their own card.</p>
+      </div>
+    </details>
+  </div>
+
+  <!-- Returning -->
+  <div id="faq-return" class="faq-group">
+    <div class="faq-group-label">Returning</div>
+
+    <details>
+      <summary>Where do I return the charger? <span class="faq-chevron">▾</span></summary>
+      <div class="faq-body">
+        <p>Return to any open slot on any Corda kiosk at the same venue — it doesn't have to be the same unit you borrowed from. Press firmly until the kiosk screen confirms <strong>Return Successful.</strong></p>
+        <p>If all kiosks at your venue are full, email us at <a href="mailto:support@cordahq.com">support@cordahq.com</a> and we'll help resolve it.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>What if I forget to return it before I leave? <span class="faq-chevron">▾</span></summary>
+      <div class="faq-body">
+        <p>Please return the charger to any open slot at the venue before you leave. A late fee of <span class="highlight">$1 per hour</span> applies after the first 3 hours. If you're unable to return it, email us at <a href="mailto:support@cordahq.com">support@cordahq.com</a> and we'll help resolve it.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>The kiosk isn't accepting my return — what do I do? <span class="faq-chevron">▾</span></summary>
+      <div class="faq-body">
+        <p>You won't be charged for a failed return. If the kiosk isn't accepting your charger, please leave it with a venue staff member if possible, then email us at <a href="mailto:support@cordahq.com">support@cordahq.com</a> with the venue name and approximate time and we'll manually clear the return on our end.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Can I return at a different venue? <span class="faq-chevron">▾</span></summary>
+      <div class="faq-body">
+        <p>Chargers should be returned at the venue where they were borrowed. If you've left the venue and are unable to return it, email us at <a href="mailto:support@cordahq.com">support@cordahq.com</a> and we'll work with you on the situation.</p>
+      </div>
+    </details>
+  </div>
+
+  <!-- Deposits & Fees -->
+  <div id="faq-fees" class="faq-group">
+    <div class="faq-group-label">Deposits &amp; Late Fees</div>
+
+    <details>
+      <summary>How does the deposit work? <span class="faq-chevron">▾</span></summary>
+      <div class="faq-body">
+        <p>When you borrow a charger, a temporary authorization hold is placed on your card. This is not a charge — it's a hold to secure the unit. The hold is released immediately when you return the charger.</p>
+        <p>Depending on your bank, the hold may appear on your statement for 3–5 business days after release, but no funds are transferred.</p>
+        <p><strong>Using a debit card?</strong> The hold will temporarily reduce your available checking account balance by the hold amount. This is not a charge, but the funds will be unavailable until your bank processes the release, which can take 3–7 business days depending on your bank — even after Corda releases the hold on our end.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>When do late fees apply? <span class="faq-chevron">▾</span></summary>
+      <div class="faq-body">
+        <p>Rentals include a <span class="highlight">3-hour free window</span>. After that, a late fee of <span class="highlight">$1 per hour</span> applies. Late fees will not exceed the $30 security deposit. We recommend setting a reminder to return your charger within the 3-hour window.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>What if the charger is lost or damaged? <span class="faq-chevron">▾</span></summary>
+      <div class="faq-body">
+        <p>If a charger is lost or returned damaged, your $30 security deposit will be forfeited. Email us at <a href="mailto:support@cordahq.com">support@cordahq.com</a> as soon as possible — we'll work with you on the situation.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>I see a charge I don't recognize — what should I do? <span class="faq-chevron">▾</span></summary>
+      <div class="faq-body">
+        <p>Email <a href="mailto:support@cordahq.com">support@cordahq.com</a> with the date, venue, and approximate time of your rental. We'll look into it promptly and follow up within 3 business days.</p>
+      </div>
+    </details>
+  </div>
+
+  <!-- Technical -->
+  <div class="faq-group">
+    <div class="faq-group-label">Technical</div>
+
+    <details>
+      <summary>The charger isn't charging my device — what should I try? <span class="faq-chevron">▾</span></summary>
+      <div class="faq-body">
+        <p>Try these steps in order:</p>
+        <p>1. Press the power button on the side of the unit — it may have shut off from lack of use.</p>
+        <p>2. Make sure the cable is fully seated in your device's port. Try a different cable connector if the first doesn't fit snugly.</p>
+        <p>3. If the unit still isn't working, return it to the kiosk and borrow a fresh one.</p>
+        <p>4. If the kiosk is empty, email us at <a href="mailto:support@cordahq.com">support@cordahq.com</a> — we'll waive any fees associated with your rental.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Is it safe to leave my device charging in my bag? <span class="faq-chevron">▾</span></summary>
+      <div class="faq-body">
+        <p>Yes — Corda chargers are designed for on-the-go use and are safe to use while stowed. As with any lithium-ion device, avoid exposing the unit to extreme heat, and do not continue using it if it feels unusually warm.</p>
+      </div>
+    </details>
+
+    <details>
+      <summary>Can I take the charger with me when I leave? <span class="faq-chevron">▾</span></summary>
+      <div class="faq-body">
+        <p>Corda chargers are intended to be used and returned at the venue where you borrowed them. Please do not remove the charger from the venue. If you leave the venue without returning it, late fees will apply and your $30 security deposit will be forfeited.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section">
+  <div class="section-eyebrow">Get in touch</div>
+  <h2 class="section-title">We're here to help</h2>
+  <div class="contact-card">
+
+    <div class="contact-row">
+      <div class="contact-icon">✉️</div>
+      <div>
+        <div class="contact-label">Email</div>
+        <div class="contact-value"><a href="mailto:support@cordahq.com">support@cordahq.com</a></div>
+        <div class="contact-note">Billing questions and non-urgent issues — we'll follow up within 3 business days</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TERMS -->
+<section id="terms" class="section">
+  <div class="section-eyebrow">Legal</div>
+  <h2 class="section-title">Terms of Service</h2>
+  <p class="terms-updated">Last updated: June 2026 &nbsp;·&nbsp; Effective upon first rental</p>
+
+  <div class="terms-toc">
+    <p>Contents</p>
+    <ol>
+      <li><a href="#t1">Acceptance of Terms</a></li>
+      <li><a href="#t2">The Rental</a></li>
+      <li><a href="#t3">Deposit &amp; Fees</a></li>
+      <li><a href="#t4">Permitted Use</a></li>
+      <li><a href="#t5">Your Responsibilities</a></li>
+      <li><a href="#t6">Limitation of Liability</a></li>
+      <li><a href="#t7">Assumption of Risk</a></li>
+      <li><a href="#t8">Indemnification</a></li>
+      <li><a href="#t9">Privacy</a></li>
+      <li><a href="#t10">Governing Law</a></li>
+      <li><a href="#t11">Changes to These Terms</a></li>
+      <li><a href="#t12">Contact</a></li>
+    </ol>
+  </div>
+
+  <div id="t1" class="terms-block">
+    <h3><span class="terms-num">01</span> Acceptance of Terms</h3>
+    <p>By borrowing a Corda charger, you ("Renter") agree to be bound by these Terms of Service ("Terms") between you and Corda Networks LLC ("Corda," "we," or "us"). These Terms govern all rentals initiated at any Corda kiosk location. If you do not agree to these Terms, do not proceed with the rental.</p>
+    <p>Use of the device constitutes acceptance of these Terms, consistent with the User Notice printed on each unit.</p>
+  </div>
+
+  <div id="t2" class="terms-block">
+    <h3><span class="terms-num">02</span> The Rental</h3>
+    <p>Corda grants you a limited, non-transferable license to use one charger unit for personal device charging during your visit to the participating venue. The unit remains the property of Corda Networks LLC at all times.</p>
+    <p>Rentals include a <strong>3-hour complimentary window</strong>. Rentals not returned within 3 hours are subject to late fees as described in Section 3.</p>
+  </div>
+
+  <div id="t3" class="terms-block">
+    <h3><span class="terms-num">03</span> Deposit &amp; Fees</h3>
+    <p><strong>Deposit.</strong> A temporary authorization hold will be placed on your payment card at the time of rental. No funds are transferred at the time of borrowing. The hold is released upon confirmed return of the unit. Debit cardholders should be aware that the hold may temporarily reduce their available bank balance; release timing varies by bank and may take 3–7 business days.</p>
+    <p><strong>Late fees.</strong> A fee of <strong>$1.00 per hour</strong> applies to each hour or portion thereof beyond the 3-hour complimentary window. Late fees will not exceed the $30 security deposit.</p>
+    <p><strong>Lost or damaged units.</strong> If a unit is not returned or is returned in a damaged condition, the $30 security deposit will be forfeited. Corda will make reasonable efforts to contact you before processing the forfeiture.</p>
+    <p><strong>Disputes.</strong> Any billing dispute must be submitted within 30 days of the rental date by contacting <a href="mailto:support@cordahq.com">support@cordahq.com</a>.</p>
+  </div>
+
+  <div id="t4" class="terms-block">
+    <h3><span class="terms-num">04</span> Permitted Use</h3>
+    <p>Corda chargers are provided for personal, non-commercial device charging during your venue visit. You agree to:</p>
+    <ul>
+      <li>Use the device only for its intended purpose (charging personal mobile devices)</li>
+      <li>Return the unit to a Corda kiosk at or before the conclusion of your visit</li>
+      <li>Keep the unit within the venue until returned</li>
+      <li>Not tamper with, disassemble, or attempt to modify the device</li>
+      <li>Not transfer the unit to another person</li>
+    </ul>
+  </div>
+
+  <div id="t5" class="terms-block">
+    <h3><span class="terms-num">05</span> Your Responsibilities</h3>
+    <p>You are responsible for the unit from the time of borrowing until confirmed return. You agree to:</p>
+    <ul>
+      <li>Inspect the unit before use and notify Corda of any pre-existing damage</li>
+      <li>Use the unit in accordance with standard lithium-ion battery safety practices</li>
+      <li>Not expose the unit to extreme heat, moisture, or physical impact</li>
+      <li>Discontinue use immediately if the unit becomes unusually warm, swollen, or emits odor</li>
+      <li>Not leave a charging device unattended in an unsecured location</li>
+    </ul>
+  </div>
+
+  <div id="t6" class="terms-block">
+    <h3><span class="terms-num">06</span> Limitation of Liability</h3>
+    <p><strong>TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, CORDA NETWORKS LLC AND ITS VENUE PARTNERS EXPRESSLY DISCLAIM ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.</strong></p>
+    <p><strong>CORDA IS NOT LIABLE FOR: (A) DAMAGE TO YOUR MOBILE DEVICE OR ACCESSORIES; (B) PROPERTY DAMAGE; (C) PERSONAL INJURY; OR (D) DATA LOSS ARISING FROM USE OF A RENTAL UNIT.</strong></p>
+    <p><strong>IN NO EVENT SHALL CORDA'S TOTAL LIABILITY EXCEED THE GREATER OF (I) THE FEES PAID BY YOU IN CONNECTION WITH THE APPLICABLE RENTAL SESSION, OR (II) $10.00.</strong></p>
+    <p>Some states do not allow exclusion of implied warranties or limitation of incidental damages, so some of the above may not apply to you.</p>
+  </div>
+
+  <div id="t7" class="terms-block">
+    <h3><span class="terms-num">07</span> Assumption of Risk</h3>
+    <p>You acknowledge that you are accepting the device in its present condition and assume full responsibility for its use. You further acknowledge that all lithium-ion battery devices carry an inherent risk of malfunction and agree to use the device in accordance with the safety guidelines in Section 5.</p>
+  </div>
+
+  <div id="t8" class="terms-block">
+    <h3><span class="terms-num">08</span> Indemnification</h3>
+    <p>You agree to indemnify, defend, and hold harmless Corda Networks LLC, its officers, employees, venue partners, and program sponsors from any claims, damages, losses, or expenses (including reasonable attorneys' fees) arising from your use of a Corda charger, your violation of these Terms, or your violation of any applicable law.</p>
+  </div>
+
+  <div id="t9" class="terms-block">
+    <h3><span class="terms-num">09</span> Privacy</h3>
+    <p>Corda collects card authorization data solely for the purpose of securing the rental and processing applicable fees. We do not sell or share your payment information with third parties except as required to process transactions. Rental transaction records are retained for a period of 12 months.</p>
+    <p>For questions about your data, contact <a href="mailto:support@cordahq.com">support@cordahq.com</a>.</p>
+  </div>
+
+  <div id="t10" class="terms-block">
+    <h3><span class="terms-num">10</span> Governing Law</h3>
+    <p>These Terms are governed by the laws of the State of Texas, without regard to its conflict of law provisions. Any dispute arising under these Terms shall be subject to the exclusive jurisdiction of the courts located in Collin County, Texas.</p>
+  </div>
+
+  <div id="t11" class="terms-block">
+    <h3><span class="terms-num">11</span> Changes to These Terms</h3>
+    <p>Corda may update these Terms from time to time. The current version will always be available at cordahq.com. Continued use of Corda services after any update constitutes acceptance of the revised Terms.</p>
+  </div>
+
+  <div id="t12" class="terms-block">
+    <h3><span class="terms-num">12</span> Contact</h3>
+    <p>For questions about these Terms, contact:</p>
+    <p><strong>Corda Networks LLC</strong><br>
+    <a href="mailto:support@cordahq.com">support@cordahq.com</a></p>
+  </div>
+</section>
+
+<!-- PRIVACY -->
+<section id="privacy" class="section">
+  <div class="section-eyebrow">Legal</div>
+  <h2 class="section-title">Privacy Policy</h2>
+  <p class="terms-updated">Last updated: June 2026</p>
+
+  <div class="terms-block">
+    <h3><span class="terms-num">01</span> What We Collect</h3>
+    <p>When you borrow a Corda charger, we collect the minimum information necessary to process and secure your rental:</p>
+    <ul>
+      <li><strong>Payment authorization data</strong> — a temporary card authorization is initiated through our payment processor (Stripe) to secure the rental. Corda does not store your full card number, CVV, or billing address. Stripe's handling of payment data is governed by <a href="https://stripe.com/privacy" target="_blank">Stripe's Privacy Policy</a>.</li>
+      <li><strong>Rental transaction records</strong> — the date, time, venue location, unit ID, and rental duration associated with your session.</li>
+    </ul>
+    <p>We do not collect your name, email address, or any other personal information unless you contact us directly for support.</p>
+  </div>
+
+  <div class="terms-block">
+    <h3><span class="terms-num">02</span> How We Use It</h3>
+    <p>The information collected is used solely to:</p>
+    <ul>
+      <li>Process and secure your rental transaction</li>
+      <li>Apply applicable fees (late fees, deposit forfeiture) if warranted</li>
+      <li>Resolve billing disputes or support requests you initiate</li>
+      <li>Maintain records for our internal operational and accounting purposes</li>
+    </ul>
+    <p>We do not use your data for marketing, advertising, or profiling purposes.</p>
+  </div>
+
+  <div class="terms-block">
+    <h3><span class="terms-num">03</span> What We Don't Do</h3>
+    <p>Corda does not sell, rent, or share your personal information with third parties, except:</p>
+    <ul>
+      <li><strong>Payment processing</strong> — Stripe receives card authorization data as our payment processor</li>
+      <li><strong>Legal compliance</strong> — if required by law, court order, or to protect the rights and safety of Corda or others</li>
+    </ul>
+    <p>Venue partners where Corda kiosks are located do not have access to your payment or transaction data.</p>
+  </div>
+
+  <div class="terms-block">
+    <h3><span class="terms-num">04</span> Data Retention</h3>
+    <p>Rental transaction records are retained for <strong>12 months</strong> from the date of the rental, after which they are deleted from our systems. Payment authorization data is managed and retained per Stripe's data retention policies.</p>
+  </div>
+
+  <div class="terms-block">
+    <h3><span class="terms-num">05</span> Your Rights</h3>
+    <p>You may request a copy of the transaction data associated with your rental, or request deletion of that data, by contacting us at <a href="mailto:support@cordahq.com">support@cordahq.com</a>. We will respond within 5 business days.</p>
+  </div>
+
+  <div class="terms-block">
+    <h3><span class="terms-num">06</span> Contact</h3>
+    <p>Questions about this policy:</p>
+    <p><strong>Corda Networks LLC</strong><br>
+    <a href="mailto:support@cordahq.com">support@cordahq.com</a></p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Corda</div>
+  <div class="footer-sub">Power the experience.</div>
+  <ul class="footer-links">
+    <li><a href="#how-it-works">How It Works</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#contact">Support</a></li>
+    <li><a href="#terms">Terms of Service</a></li>
+    <li><a href="#privacy">Privacy Policy</a></li>
+  </ul>
+  <div class="footer-copy">© 2026 Corda Networks LLC</div>
+</footer>
+
+</body>
+</html>
